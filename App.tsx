@@ -6,6 +6,7 @@ import messages from './Globals/messages';
 import { Message } from './Globals/types';
 import Conv from './Screens/Conv';
 import Header from './Screens/Header';
+import Sender from './Screens/Sender';
 
 export default function App() {
   const [stage, setStage] = useState<number>(0);
@@ -15,6 +16,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <Header setStage={setStage} />
       <Conv messages={msg} />
+      <Sender />
     </SafeAreaView>
   );
 }

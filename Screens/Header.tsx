@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { HeaderProps } from '../Globals/types';
 
 const monkeImg = "https://pbs.twimg.com/profile_images/1363426233908948994/Nz-dm2mr_400x400.jpg";
 
