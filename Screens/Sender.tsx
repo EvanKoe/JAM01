@@ -12,7 +12,7 @@ const Sender = () => {
             <Text style={styles.text}>Solution 2</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.text}>Solution 3, fdljlm kjl kjqlk jlmdkfj qlskjdfl kjqslmdkfjlmks jqdlmfkj lsqmkj</Text>
+            <Text style={styles.text}>Solution 3</Text>
           </TouchableOpacity>
         </ScrollView>
     );
@@ -26,16 +26,18 @@ const styles = StyleSheet.create({
   },
   button: {
     alignSelf: 'center',
-    marginHorizontal: 30,
+    marginHorizontal: 15,
     backgroundColor: colors.fg2,
     borderColor: colors.bg,
     borderRadius: 15,
     borderWidth: 1,
     paddingVertical: 10,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    maxWidth: 300,
+    maxHeight: '100%'
   },
   text: {
-    fontSize: 20,
+    fontSize: 15,
     color: colors.text
   }
 });
