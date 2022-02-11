@@ -1,6 +1,7 @@
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 import React from 'react';
 import { View, Text, FlatList, ListRenderItem, ListRenderItemInfo, StyleSheet } from 'react-native';
+import colors from '../Globals/colors';
 import { ConvProps, Message } from '../Globals/types';
 
 const Bubble = (e: ListRenderItemInfo<Message>) => {
@@ -26,25 +27,28 @@ const Conv = ({ messages = [] }: ConvProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#121212',
-    marginHorizontal: 5
+    backgroundColor: colors.bg1,
+    paddingHorizontal: 5
   },
   bubble: {
-    backgroundColor: '#414141',
+    backgroundColor: colors.fg,
     padding: 10,
     marginTop: 5,
     borderRadius: 15,
+    maxWidth: '50%'
   },
   you: {
-    backgroundColor: '#4444cc',
-    borderBottomRightRadius: 5
+    backgroundColor: colors.fg1,
+    borderBottomRightRadius: 3,
+    marginLeft: 'auto'
   },
   monke: {
-    backgroundColor: '#313131',
-    borderBottomLeftRadius: 5
+    borderBottomLeftRadius: 3
   },
   success: {
-    backgroundColor: '#bb2222',
+    maxWidth: '100%',
+    alignItems: 'center',
+    backgroundColor: '#c9f7f2',
     borderRadius: 5
   }
 });
