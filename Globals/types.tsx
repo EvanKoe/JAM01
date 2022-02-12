@@ -1,30 +1,29 @@
 interface HeaderProps {
+  setFullMessages: (e: Message[] | ((f: Message[]) => Message[])) => void,
   setStage: (e: number | ((f: number) => number)) => void,
-  stage: number,
-  setResponses: (e: number[] | ((f: number[]) => number[])) => void
-  setMessage: (e: Message[] | ((f: Message[]) => Message[])) => void
+  setMessages: (e: Message[] | ((f: Message[]) => Message[])) => void,
+  stage: number
 };
 
 interface SenderProps {
   setStage: (e: number | ((f: number) => number)) => void,
   stage: number,
+  messages: Message[],
+  setMessages: (e: Message[] | ((f: Message[]) => Message[])) => void,
   answers: Message[] | undefined,
-  array: number[] | [],
-  setArray: (e: number[] | ((f: number[]) => number[])) => void,
-};
-
-interface Message {
-  stage: number,
-  answerId: number, // -1 if not an answer
-  sender: "you" | "monke" | "success",
-  body: string
 };
 
 interface ConvProps {
   messages: Message[],
-  responses: number[],
-  stage: number,
-  stateMsg: Message[] | undefined,
+  stage: number
+};
+
+interface Message {
+  stage: number,        // questions and answers have different stages (success stay with monke answers)
+  isDisplayed: boolean, // true only for success and monke messages that don't depend on a specific user message
+  answerId: number,     // -1 for success, 0 -> 2 for questions/answers
+  sender: "you" | "monke" | "success",
+  body: string
 };
 
 export {

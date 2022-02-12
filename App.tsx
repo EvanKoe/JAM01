@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import colors from './Globals/colors';
 import messages from './Globals/messages';
@@ -11,24 +10,33 @@ import Sender from './Screens/Sender';
 
 export default function App() {
   const [stage, setStage] = useState<number>(0);
-  const [msg, setMsg] = useState<Message[]>([]); // messages.filter(e => e.stage <= stage)
+  const [fullMessages, setFullMessage] = useState<Message[]>(messages);
+  const [msg, setMsg] = useState<Message[]>(messages);
   const [success, setSuccess] = useState<number>(0);
-  const [responses, setResponses] = useState<number[]>([]);
 
   useEffect(() => {
-    setMsg(e => [...e, ...messages.filter(e => e.stage == stage || e.answerId === -2)]);
-  }, [stage]);
+    setMsg(fullMessages.filter(e =>  e.isDisplayed && e.stage <= stage));
+    fullMessages.filter(e => e.stage === stage).map((e: Message) => {
+      if (e.answerId === -1)
+        setSuccess(s => s + 1);
+    });
+  }, [stage, fullMessages]);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header setStage={setStage} stage={stage} setResponses={setResponses} setMessage={setMsg} />
-      <Conv messages={msg} responses={responses} stage={stage} stateMsg={msg} />
+      <Header
+        setFullMessages={setFullMessage}
+        setStage={setStage}
+        setMessages={setMsg}
+        stage={stage}
+      />
+      <Conv messages={msg} stage={stage} />
       <Sender
         setStage={setStage}
         stage={stage}
-        array={responses}
-        setArray={setResponses}
-        answers={messages.filter(e => e.stage === stage + 1 && e.sender === 'you')}
+        messages={fullMessages}
+        setMessages={setFullMessage}
+        answers={fullMessages.filter(e => e.stage === stage + 1 && e.sender === 'you')}
       />
     </SafeAreaView>
   );

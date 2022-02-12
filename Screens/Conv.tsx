@@ -2,25 +2,29 @@ import React, { useEffect } from 'react';
 import { View, Text, FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
 import colors from '../Globals/colors';
 import { ConvProps, Message } from '../Globals/types';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Bubble = (e: ListRenderItemInfo<Message>) => {
   const sender = e.item.sender;
 
   return (
-    <View style={[ styles.bubble, sender === 'you' ? styles.you : sender === 'monke' ? styles.monke : styles.success ]}>
+    <View style={[
+      styles.bubble, sender === 'you' ? styles.you : sender === 'monke' ? styles.monke : styles.success
+    ]}>
+      { sender === 'success' && (
+        <MaterialCommunityIcons name="trophy" size={24} color="black" style={styles.trophy} />
+      )}
       <Text style={ sender === 'monke' ? { color: '#ddd' } : {}}>{e.item.body}</Text>
     </View>
-  )
+  );
 };
 
 const Conv = ({
   messages = [],
-  responses = [],
-  stage = 0,
-  stateMsg = []
+  stage = 0
 }: ConvProps) => {
   let _list: FlatList | null = null;
-  let arr = messages.filter(e => e.answerId < 0 || e.stage === stage && e.answerId === responses[stage - 1]);
+  let arr: Message[] = messages.filter(e => e.isDisplayed || e.stage === stage);
 
   return (
     <FlatList
@@ -41,6 +45,7 @@ const styles = StyleSheet.create({
   },
   bubble: {
     backgroundColor: colors.fg,
+    flexDirection: 'row',
     padding: 10,
     paddingHorizontal: 20,
     marginTop: 5,
@@ -56,10 +61,15 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 3
   },
   success: {
-    maxWidth: '100%',
-    alignItems: 'center',
+    maxWidth: '80%',
+    alignSelf: 'center',
     backgroundColor: '#a1b1ce',
-    borderRadius: 3
+    borderRadius: 5,
+    elevation: 20
+  },
+  trophy: {
+    marginRight: 10,
+    textAlignVertical: 'center'
   }
 });
 

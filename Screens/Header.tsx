@@ -8,10 +8,10 @@ const monkeImg = "https://pbs.twimg.com/profile_images/1363426233908948994/Nz-dm
 const api_url ="https://zenquotes.io/api/quotes/";
 
 const Header = ({
+  setFullMessages = () => {},
   setStage = () => {},
-  stage = 0,
-  setResponses = () => {},
-  setMessage = () => {}
+  setMessages = () => {},
+  stage = 0
 }: HeaderProps) => {
   const [quotes, setQuotes] = useState<any[] | undefined>(undefined);
 
@@ -24,9 +24,9 @@ const Header = ({
         {
           text: "Yes",
           onPress: () => {
-            setStage(0)
-            setResponses([]);
-            setMessage(messages.filter(e => e.stage == 0));
+            setFullMessages(messages);
+            setMessages(messages);
+            setStage(0);
           }
         }
       ]
@@ -39,12 +39,12 @@ const Header = ({
     let a = Math.random() * quotes.length | 0;
     let o: Message = {
       answerId: -2,
+      isDisplayed: true,
       body: quotes[a].q,
       sender: 'monke',
       stage: stage + 1
-    }
-    //messages.push(o);
-    setMessage(e => [...e, o]);
+    };
+    setFullMessages(e => [...e, o]);
   }
 
   useEffect(() => {
