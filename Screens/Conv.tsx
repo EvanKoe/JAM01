@@ -1,6 +1,5 @@
-import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
-import React from 'react';
-import { View, Text, FlatList, ListRenderItem, ListRenderItemInfo, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, FlatList, ListRenderItemInfo, StyleSheet } from 'react-native';
 import colors from '../Globals/colors';
 import { ConvProps, Message } from '../Globals/types';
 
@@ -9,18 +8,28 @@ const Bubble = (e: ListRenderItemInfo<Message>) => {
 
   return (
     <View style={[ styles.bubble, sender === 'you' ? styles.you : sender === 'monke' ? styles.monke : styles.success ]}>
-      <Text>{e.item.body}</Text>
+      <Text style={ sender === 'monke' ? { color: '#ddd' } : {}}>{e.item.body}</Text>
     </View>
   )
 };
 
-const Conv = ({ messages = [] }: ConvProps) => {
+const Conv = ({
+  messages = [],
+  responses = [],
+  stage = 0,
+  stateMsg = []
+}: ConvProps) => {
+  let _list: FlatList | null = null;
+  let arr = messages.filter(e => e.answerId < 0 || e.stage === stage && e.answerId === responses[stage - 1]);
+
   return (
     <FlatList
       style={styles.container}
-      data={messages}
+      data={arr}
+      ref={e => _list = e}
+      onContentSizeChange={() => setTimeout(() => _list && _list.scrollToEnd(), 200)}
       renderItem={Bubble}
-      keyExtractor={(e) => "message::" + e.body}
+      keyExtractor={(e) => "message::" + e.body + (Math.random() * 40).toString()}
     />
   );
 };
@@ -33,9 +42,10 @@ const styles = StyleSheet.create({
   bubble: {
     backgroundColor: colors.fg,
     padding: 10,
+    paddingHorizontal: 20,
     marginTop: 5,
     borderRadius: 15,
-    maxWidth: '50%'
+    maxWidth: '70%'
   },
   you: {
     backgroundColor: colors.fg1,
@@ -48,8 +58,8 @@ const styles = StyleSheet.create({
   success: {
     maxWidth: '100%',
     alignItems: 'center',
-    backgroundColor: '#c9f7f2',
-    borderRadius: 5
+    backgroundColor: '#a1b1ce',
+    borderRadius: 3
   }
 });
 
