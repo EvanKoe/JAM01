@@ -13,6 +13,7 @@ export default function App() {
   const [fullMessages, setFullMessage] = useState<Message[]>(messages);
   const [msg, setMsg] = useState<Message[]>(messages);
   const [success, setSuccess] = useState<number>(0);
+  const [successGlobal, setSuccessGlobal] = useState<number>(0);
 
   useEffect(() => {
     let a = 0;
@@ -21,10 +22,9 @@ export default function App() {
     fullMessages.filter(e => e.stage <= stage + 1).map((e: Message) => {
       if (e.sender === 'success' && e.isDisplayed) {
         a++;
-        console.log('jackpot');
       }
     });
-    setSuccess(e => e + a);
+    setSuccess(successGlobal + a);
   }, [stage, fullMessages]);
 
   return (
@@ -32,9 +32,11 @@ export default function App() {
       <Header
         setFullMessages={setFullMessage}
         setStage={setStage}
+        setSuccessGlobal={setSuccessGlobal}
         setMessages={setMsg}
         stage={stage}
         success={success}
+        successGlobal={successGlobal}
       />
       <Conv messages={msg} stage={stage} />
       <Sender

@@ -11,9 +11,11 @@ const api_url ="https://zenquotes.io/api/quotes/";
 const Header = ({
   setFullMessages = () => {},
   setStage = () => {},
+  setSuccessGlobal = () => {},
   setMessages = () => {},
   stage = 0,
-  success = 0
+  success = 0,
+  successGlobal = 0
 }: HeaderProps) => {
   const [quotes, setQuotes] = useState<any[] | undefined>(undefined);
 
@@ -36,6 +38,7 @@ const Header = ({
               return e;
             });
 
+            setSuccessGlobal(successGlobal + success);
             setFullMessages(a);
             setMessages(a);
             setStage(0);

@@ -1,9 +1,11 @@
 interface HeaderProps {
   setFullMessages: (e: Message[] | ((f: Message[]) => Message[])) => void,
   setStage: (e: number | ((f: number) => number)) => void,
+  setSuccessGlobal: (e: number | ((f: number) => number)) => void,
   setMessages: (e: Message[] | ((f: Message[]) => Message[])) => void,
   stage: number,
-  success: number
+  success: number,
+  successGlobal: number
 };
 
 interface SenderProps {
