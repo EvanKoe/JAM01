@@ -24,12 +24,11 @@ const Conv = ({
   stage = 0
 }: ConvProps) => {
   let _list: FlatList | null = null;
-  let arr: Message[] = messages.filter(e => e.isDisplayed || e.stage === stage);
 
   return (
     <FlatList
       style={styles.container}
-      data={arr}
+      data={messages.filter(e => e.isDisplayed || e.stage === stage)}
       ref={e => _list = e}
       onContentSizeChange={() => setTimeout(() => _list && _list.scrollToEnd(), 200)}
       renderItem={Bubble}

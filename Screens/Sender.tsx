@@ -19,7 +19,6 @@ const Sender = ({
         e.isDisplayed = true;
       }
       if (e.stage === stage + 2 && an !== undefined && e.answerId === an) {
-        console.log(e.body);
         e.isDisplayed = true;
       }
       return e;

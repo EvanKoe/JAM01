@@ -15,11 +15,16 @@ export default function App() {
   const [success, setSuccess] = useState<number>(0);
 
   useEffect(() => {
+    let a = 0;
+
     setMsg(fullMessages.filter(e =>  e.isDisplayed && e.stage <= stage));
-    fullMessages.filter(e => e.stage === stage).map((e: Message) => {
-      if (e.answerId === -1)
-        setSuccess(s => s + 1);
+    fullMessages.filter(e => e.stage <= stage + 1).map((e: Message) => {
+      if (e.sender === 'success' && e.isDisplayed) {
+        a++;
+        console.log('jackpot');
+      }
     });
+    setSuccess(e => e + a);
   }, [stage, fullMessages]);
 
   return (
@@ -29,6 +34,7 @@ export default function App() {
         setStage={setStage}
         setMessages={setMsg}
         stage={stage}
+        success={success}
       />
       <Conv messages={msg} stage={stage} />
       <Sender
