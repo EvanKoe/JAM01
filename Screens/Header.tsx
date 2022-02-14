@@ -38,7 +38,7 @@ const Header = ({
               return e;
             });
 
-            setSuccessGlobal(successGlobal + success);
+            setSuccessGlobal(success);
             setFullMessages(a);
             setMessages(a);
             setStage(0);
