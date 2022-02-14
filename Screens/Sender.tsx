@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, ScrollView, Button,TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, ScrollView, Button,TouchableOpacity, View } from 'react-native'
 import colors from '../Globals/colors';
 import { Message, SenderProps } from '../Globals/types';
 
@@ -35,7 +35,7 @@ const Sender = ({
       horizontal={true}
       style={styles.container}
     >
-      { answers.map((e: Message, i: number) => {
+      { stage < 10 ? answers.map((e: Message, i: number) => {
           return (
             <TouchableOpacity
               key={e.body + (Math.random() * 40).toString()}
@@ -46,7 +46,12 @@ const Sender = ({
             </TouchableOpacity>
           );
         })
-      }
+      : (
+        <View style={{ alignItems: 'center' }}>
+          <Text style={{ color: '#dddd', marginTop: 'auto' }}>Monke is sleeping</Text>
+          <Text style={{ color: '#ddd8', marginBottom: 'auto' }}>Try resetting the conversation !</Text>
+        </View>
+      )}
     </ScrollView>
   ) : (
     <Text />
@@ -58,7 +63,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#fff',
     maxHeight: '15%',
-    minHeight: '10%'
+    minHeight: '15%'
   },
   button: {
     alignSelf: 'center',

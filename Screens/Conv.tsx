@@ -14,7 +14,9 @@ const Bubble = (e: ListRenderItemInfo<Message>) => {
       { sender === 'success' && (
         <MaterialCommunityIcons name="trophy" size={24} color="black" style={styles.trophy} />
       )}
-      <Text style={ sender === 'monke' ? { color: '#ddd' } : {}}>{e.item.body}</Text>
+      <Text style={ sender === 'monke' ? { color: '#ddd' } :
+        sender === 'success' ? {flex: 1, flexWrap: 'wrap'} : {}
+      }>{e.item.body}</Text>
     </View>
   );
 };
